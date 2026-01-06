@@ -30,10 +30,10 @@ export const BoxAction = ({
             }
             
         }
-        if ( data["daysInduction"] >= data["daysWorks"] ) {
+        if ( data["daysInduction"] >= data["daysWorks"]  ) {
             errors["daysInduction"] = "Debe ser menor a Días de Trabajo"
         }
-        if ( data["totalDaysPerforation"] < ( Number(data["daysWorks"]) + Number(data["daysRest"]) ) ) {
+        if ( data["totalDaysPerforation"] < ( Number(data["daysWorks"]) + Number(data["daysRest"])  ) ) {
             errors["totalDaysPerforation"] = "Debe ser mayor o igual a la suma de Días de Trabajo y Días de Descanso"
         }
         setError( Object.keys(errors).length > 0 ? errors : null)
