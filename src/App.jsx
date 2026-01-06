@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Schedule, BoxAction } from './components'
-import { generateSchedule } from './utils/scheduleGenerator'
+import { generateSchedule } from './utils/ScheduleGenerator'
 
 function App() {
     const [days, setDays] = useState(0)
@@ -36,6 +36,7 @@ function App() {
             <Schedule
                 data={data}
                 days={days}
+
             />
         </main>
     )
