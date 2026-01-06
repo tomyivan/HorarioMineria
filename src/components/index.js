@@ -1,4 +1,4 @@
 
 export { BoxAction } from "./boxAction/BoxAction";
-export { Schedule } from "./Schedule/Schedule";
+export { Schedule } from "./schedule/Schedule";
 export { StatesActivity } from "./states/States";
