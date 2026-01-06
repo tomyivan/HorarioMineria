@@ -7,15 +7,17 @@ export const BoxAction = ({
     const captureData = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target.form)
-        const newData = Object.fromEntries(formData) 
-        validationData(newData) && handleCalculate(newData);
+        const newData = Object.fromEntries(formData)
+        if ( validationData(newData) ) handleCalculate(newData);
     }
     const validationData = (data) => {
         for (const key in data) {
+            
             if (key === "daysInduction" && Number(data[key]) > 5) {
                 alert("Los dias de induccion no pueden ser mayores a 5")
                 return false
-            }else if (Number(data[key]) < 0 || data[key] === "") {
+            }
+            if (Number(data[key]) < 0 || data[key] === "") {
                 alert("Los valores no pueden ser negativos o vacios")
                 return false
             }
@@ -36,7 +38,6 @@ export const BoxAction = ({
                             label={"Régimen (Trabajo x Descanso)"}
                             placeholder="Días de Trabajo"
                             type={"number"}
-                            onChange={() => {}}
                             name={"daysWorks"}
                             min={1}
                             required
@@ -49,7 +50,6 @@ export const BoxAction = ({
                         <Input
                             placeholder="Días de Descanso"
                             type={"number"}
-                            onChange={() => {}}
                             name={"daysRest"}
                             min={1}
                             required
@@ -63,7 +63,6 @@ export const BoxAction = ({
                         label={"Inducción"}
                         placeholder="Días de Inducción"
                         type={"number"}
-                        onChange={() => {}}
                         name={"daysInduction"}
                         max={5}
                         min={0}
@@ -77,7 +76,6 @@ export const BoxAction = ({
                         label={"Total de Días"}
                         placeholder="Total días de Perforación"
                         type={"number"}
-                        onChange={() => {}}
                         name={"totalDaysPerforation"}
                         min={2}
                         required

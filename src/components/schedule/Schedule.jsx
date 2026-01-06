@@ -1,7 +1,6 @@
 import { Activities } from "./Activities";
 import { StatesActivity } from "../states/States";
 export const Schedule = ({ data, days }) => {
-    console.log(data);
     return (
         <section className="text-gray-200 my-6 flex flex-col">
             <Activities />

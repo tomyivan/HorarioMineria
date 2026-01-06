@@ -1,4 +1,3 @@
-import { StatesActivity } from "../states/States";
 const activities = [
     { type: 'up', label: 'Subida', color:'bg-blue-500', icon: 'S' },
     { type: 'induction', label: 'Inducción', color:'bg-yellow-500', icon: 'I' },
