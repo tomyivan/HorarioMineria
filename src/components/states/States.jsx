@@ -1,3 +1,4 @@
+// Convierte estado a badge con color y letra
 export const StatesActivity = ({type}) => {
     const stateConfig = {
         'up': {

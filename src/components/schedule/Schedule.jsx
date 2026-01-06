@@ -1,5 +1,7 @@
 import { Activities } from "./Activities";
 import { StatesActivity } from "../states/States";
+
+// Renderiza tabla con el cronograma de los 3 equipos
 export const Schedule = ({ data, days }) => {
     return (
         <section className="text-gray-200 my-6 flex flex-col">

@@ -10,13 +10,10 @@ function App() {
         s3: [],
         '#P': [],
     })
-    const [errors, setErrors] = useState([])
-    const [isValid, setIsValid] = useState(true)
-
+    // Recibe parámetros del formulario y genera el cronograma
     const handleCalculate = (formData) => {
         const { daysWorks, daysRest, daysInduction, totalDaysPerforation } = formData        
         try {
-            // Generar cronograma usando el nuevo algoritmo
             const result = generateSchedule(
                 Number(daysWorks),
                 Number(daysRest),
@@ -25,8 +22,6 @@ function App() {
             )
             setDays(Number(totalDaysPerforation))
             setData(result.schedule)
-            setErrors(result.errors)
-            setIsValid(result.isValid)
             
         } catch (error) {
             console.error('Error al generar cronograma:', error)
@@ -41,7 +36,6 @@ function App() {
             <Schedule
                 data={data}
                 days={days}
-                errors={errors}
             />
         </main>
     )

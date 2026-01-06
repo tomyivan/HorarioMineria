@@ -1,96 +1,99 @@
 import { Button } from "../../shared/Button"
 import { Input } from "../../shared/Input"
-import { X, Key, Zap } from "lucide-react"
+import { X, Key } from "lucide-react"
+import { useState } from "react"
 export const BoxAction = ({
     handleCalculate
 }) => {
+    const [ error, setError ] = useState( null)
+    
+    // Captura datos del formulario y valida antes de enviar
     const captureData = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target.form)
         const newData = Object.fromEntries(formData)
         if ( validationData(newData) ) handleCalculate(newData);
     }
+    
+    // Valida que los parámetros sean válidos
     const validationData = (data) => {
-        for (const key in data) {
+        const errors = {}
+        for (const key in data) {            
+            if ( Number(data[key]) <= 0 || data[key] === "") {
+                errors[key] = "Ingrese un valor válido."
+            }
+            if ( key === "daysInduction" && Number(data[key]) > 5 ) {
+                errors[key] = "Debe ser mayores a 5"
+            }
+            if ( key === "daysRest" && Number(data[key]) <= 2 ) {
+                errors[key] = "Debe ser mayores a 2"
+            }
             
-            if (key === "daysInduction" && Number(data[key]) > 5) {
-                alert("Los dias de induccion no pueden ser mayores a 5")
-                return false
-            }
-            if (Number(data[key]) < 0 || data[key] === "") {
-                alert("Los valores no pueden ser negativos o vacios")
-                return false
-            }
         }
-        return true
+        if ( data["daysInduction"] >= data["daysWorks"] ) {
+            errors["daysInduction"] = "Debe ser menor a Días de Trabajo"
+        }
+        if ( data["totalDaysPerforation"] < ( Number(data["daysWorks"]) + Number(data["daysRest"]) ) ) {
+            errors["totalDaysPerforation"] = "Debe ser mayor o igual a la suma de Días de Trabajo y Días de Descanso"
+        }
+        setError( Object.keys(errors).length > 0 ? errors : null)
+        return Object.keys(errors).length === 0
     }
     return (
-        <div className="p-6 from-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-700 mb-6">
+        <div className="p-6 from-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-700 mb-6 overflow-hidden bg-gradient-to-br">
             <h1 className="text-3xl font-bold mb-6 text-white flex items-center gap-2">
                 <Key className="text-blue-500" size={28} />
                 Parámetros de Cronograma
             </h1>
-            <form className="flex items-end flex-wrap md:flex-nowrap gap-4">
+            <form className="flex items-end flex-col  gap-4">
                 {/* Régimen */}
-                <div className="flex items-end gap-2 flex-1">
-                    <div className="flex-1">
-                        <Input
-                            label={"Régimen (Trabajo x Descanso)"}
-                            placeholder="Días de Trabajo"
-                            type={"number"}
-                            name={"daysWorks"}
-                            min={1}
-                            required
-                        />
+                <div className="flex flex-col md:flex-row items-end gap-2 w-full  ">
+                    <div className="flex flex-col w-full">
+                        <label htmlFor="daysWorks">
+                            <span className="text-sm font-semibold text-gray-300 block mb-2">Régimen (Trabajo x Descanso)</span>
+                        </label>
+                        <div className="flex flex-row">
+                            <Input
+                                placeholder="Días de Trabajo"
+                                type={"number"}
+                                name={"daysWorks"}
+                                required
+                                validation={ error?.["daysWorks"] ? { label: error["daysWorks"] } : null }
+                            />
+                            <X className="text-gray-400 mx-2 mt-2" size={30} />
+                            <Input
+                                placeholder="Días de Descanso"
+                                type={"number"}
+                                name={"daysRest"}
+                                required
+                                validation={ error?.["daysRest"] ? { label: error["daysRest"] } : null }
+                            />                                
+                        </div>
                     </div>
-                    <div className="text-gray-400 pb-3">
-                        <X size={20} />
-                    </div>
-                    <div className="flex-1">
-                        <Input
-                            placeholder="Días de Descanso"
-                            type={"number"}
-                            name={"daysRest"}
-                            min={1}
-                            required
-                        />                
-                    </div>
-                </div>
-
-                {/* Inducción */}
-                <div className="flex-1">
                     <Input 
                         label={"Inducción"}
                         placeholder="Días de Inducción"
                         type={"number"}
                         name={"daysInduction"}
-                        max={5}
-                        min={0}
                         required
+                        validation={ error?.["daysInduction"] ? { label: error["daysInduction"] } : null }
                     />         
-                </div>
-
-                {/* Total Días */}
-                <div className="flex-1">
                     <Input 
                         label={"Total de Días"}
                         placeholder="Total días de Perforación"
                         type={"number"}
                         name={"totalDaysPerforation"}
-                        min={2}
                         required
+                        validation={ error?.["totalDaysPerforation"] ? { label: error["totalDaysPerforation"] } : null }
                     />         
                 </div>
-
-                {/* Botón */}
                 <Button 
                     variant={'primary'}
                     onClick={captureData}
                     type={"submit"}
-                    className="h-fit"
+                    className="h-fit min-w-50"
                 >
-                    <Zap size={18} className="mr-2 inline" />
-                    Generar
+                    Calcular Cronograma
                 </Button>
             </form>          
         </div>

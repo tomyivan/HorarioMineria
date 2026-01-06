@@ -1,16 +1,44 @@
-# React + Vite
+# Minería - Generador de Cronograma de Perforación
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación React que genera cronogramas de perforación optimizados para 3 equipos de trabajo (S1, S2, S3).
 
-Currently, two official plugins are available:
+## 📋 Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Calcula un calendario inteligente donde:
+- **S1**: Equipo base con ciclos regulares (Subida → Inducción → Perforación → Bajada → Descanso)
+- **S2 y S3**: Se coordinan automáticamente para mantener perforación activa y evitar descansos simultáneos
 
-## React Compiler
+## 🚀 Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Ingreso de parámetros: Régimen trabajo/descanso, días de inducción, total de días
+- Validación de datos con errores específicos
+- Tabla visual con código de colores por actividad
+- Leyenda interactiva con significado de cada estado
+- Conteo automático de perforaciones (#P) por día
 
-## Expanding the ESLint configuration
+## 🎨 Estados de Actividad
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Estado | Código | Color | Significado |
+|--------|--------|-------|-------------|
+| Subida | S | Azul | Subida del equipo |
+| Inducción | I | Amarillo | Capacitación (primer ciclo) |
+| Perforación | P | Verde | Actividad principal de trabajo |
+| Bajada | B | Rojo | Bajada del equipo |
+| Descanso | D | Gris | Tiempo de inactividad |
+
+## 🛠️ Stack Tecnológico
+
+- **React 19.2** - Framework UI
+- **Vite** - Build tool
+- **Tailwind CSS 4** - Estilos
+- **Lucide React** - Iconografía
+- **ESLint** - Linting
+
+## 📦 Comandos
+
+```bash
+pnpm install    # Instalar dependencias
+pnpm run dev    # Desarrollo (Vite HMR)
+pnpm run build  # Producción
+pnpm run lint   # Validar código
+```

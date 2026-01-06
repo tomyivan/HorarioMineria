@@ -6,6 +6,7 @@ const activities = [
     { type: 'downtime', label: 'Descanso', color:'bg-gray-500', icon: 'D' },
     { type: '-', label: 'Vacio', color:'bg-white', icon: '-' },
 ];
+// Leyenda de actividades del cronograma
 export const Activities  = () => {
     return (
         <div className="mb-6">
